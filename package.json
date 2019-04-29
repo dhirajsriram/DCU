@@ -2,7 +2,11 @@
 	"name": "dcupush",
 	"displayName": "DCU-push",
 	"description": "DCU push command for oracle commerce cloud",
-	"version": "0.0.2",
+	"author": {
+		"name": "dhirajsriram"
+	  },
+	  "icon": "images/icon.png",
+	"version": "0.0.3",
 	"publisher": "Dhirajsriram",
 	"engines": {
 		"vscode": "^1.30.0"
