@@ -20,7 +20,7 @@ Look for DCU-push on the VS code marketplace and install the plugin
  
  The extension looks for a config.json in the directory by default and gets the config values from there
  
- ```js
+ ```json
  {
  "username":"abc",
  "password":"123"
