@@ -23,7 +23,7 @@ Look for DCU-push on the VS code marketplace and install the plugin
  ```json
  {
  "username":"abc",
- "password":"123"
+ "password":"123",
  "node":"www.xyz.com"
  }
  ```
