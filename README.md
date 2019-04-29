@@ -15,7 +15,16 @@ Look for DCU-push on the VS code marketplace and install the plugin
  The extension runs the following command by default
  
  ```sh
- dcu --put "<filename>" --node <url> --username <username> --password <password>
+ dcu --put "<filename>" --node <node> --username <username> --password <password>
  ```
  
+ The extension looks for a config.json in the directory by default and gets the config values from there
+ 
+ ```js
+ {
+ "username":"abc",
+ "password":"123"
+ "node":"www.xyz.com"
+ }
+ ```
  
