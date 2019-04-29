@@ -31,6 +31,6 @@ Look for DCU-push on the VS code marketplace and install the plugin
 |---------|------------|----------|------|
 |filepath|The location of the file to be pushed to using DCU |string| ``vscode.window.activeTextEditor.document.uri.fsPath``|
 |username|The username of the user pushing the file|string|``config.json``|
-|password|Password of the user|``config.json``|
+|password|Password of the user|string|``config.json``|
 |node|The CC instance to which the file needs to be pushed |string|``config.json``|
  
