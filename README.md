@@ -1,30 +1,21 @@
-# vscode-terminal-api-example
+# DCU-Push
 
-This sample provides several commands that demonstrates how to utilize the integrated terminal extension API. Access the commands through the command palette (F1).
+A VS code plugin that does a PUT operation onto the Orcale commerce cloud server
 
-## VS Code API
+## Install
 
-### `vscode` module
+Look for DCU-push on the VS code marketplace and install the plugin 
 
-- [window.createTerminal](https://code.visualstudio.com/api/references/vscode-api#window.createTerminal)
-- [window.onDidChangeActiveTerminal](https://code.visualstudio.com/api/references/vscode-api#window.onDidChangeActiveTerminal)
-- [window.onDidCloseTerminal](https://code.visualstudio.com/api/references/vscode-api#window.onDidCloseTerminal)
-- [window.onDidOpenTerminal](https://code.visualstudio.com/api/references/vscode-api#window.onDidOpenTerminal)
-- [window.Terminal](https://code.visualstudio.com/api/references/vscode-api#window.Terminal)
-- [window.terminals](https://code.visualstudio.com/api/references/vscode-api#window.terminals) 
+## Usage
 
-### Proposed API
-
-- `window.createTerminalRenderer`
-- `window.TerminalRenderer`
-
-### Contribution Points
-
-- [`contributes.commands`](https://code.visualstudio.com/api/references/contribution-points#contributes.commands)
-
-## Running the Sample
-
-- Run `npm install` in terminal to install dependencies
-- Run the `Run Extension` target in the Debug View. This will:
-	- Start a task `npm: watch` to compile the code
-	- Run the extension in a new VS Code window
+ Open the Command Palette (Ctrl+Shift+P) and type 'DCU Push' to push the current opened file onto the CC server.
+ 
+ ## Snippet
+ 
+ The extension runs the following command by default
+ 
+ ```sh
+ dcu --put "<filename>" --node <url> --username <username> --password <password>
+ ```
+ 
+ 
