@@ -2,12 +2,19 @@
 	"name": "dcupush",
 	"displayName": "DCU-push",
 	"description": "DCU push command for oracle commerce cloud",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "Dhirajsriram",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
-	"enableProposedApi": true,
+	"enableProposedApi": false,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dhirajsriram/DCU"
+	  },
+	  "bugs": {
+		"url": "https://github.com/dhirajsriram/DCU/issues"
+	  },
 	"categories": [
 		"Other"
 	],
