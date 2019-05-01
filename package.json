@@ -1,12 +1,12 @@
 {
-	"name": "dcupush",
-	"displayName": "DCU-push",
-	"description": "DCU push command for oracle commerce cloud",
+	"name": "dcu",
+	"displayName": "DCU",
+	"description": "A DCU VS code extension for Oracle commerce cloud. Helps to be in sync with the Commerce cloud and your local",
 	"author": {
 		"name": "dhirajsriram"
 	},
 	"icon": "images/icon.png",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "Dhirajsriram",
 	"engines": {
 		"vscode": "^1.30.0"
