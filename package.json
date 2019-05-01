@@ -4,9 +4,9 @@
 	"description": "DCU push command for oracle commerce cloud",
 	"author": {
 		"name": "dhirajsriram"
-	  },
-	  "icon": "images/icon.png",
-	"version": "0.0.3",
+	},
+	"icon": "images/icon.png",
+	"version": "0.0.4",
 	"publisher": "Dhirajsriram",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -15,24 +15,70 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/dhirajsriram/DCU"
-	  },
-	  "bugs": {
+	},
+	"bugs": {
 		"url": "https://github.com/dhirajsriram/DCU/issues"
-	  },
-	"categories": [
-		"Other"
-	],
+	},
+	"categories": [ "Other" ],
 	"activationEvents": [
-		"onCommand:terminalTest.dcu"
+		"onCommand:terminalTest.dcupush",
+		"onCommand:terminalTest.dcuset",
+		"onCommand:terminalTest.dcugrab",
+		"onCommand:terminalTest.dcupushall"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "terminalTest.dcu",
-				"title": "DCU push"
+				"command": "terminalTest.dcupush",
+				"title": "DCU Put ⬆️"
+			},
+			{
+				"command": "terminalTest.dcupushall",
+				"title": "DCU Putall ⏫"
+			},
+			{
+				"command": "terminalTest.dcugrab",
+				"title": "DCU Grab ⬇️"
+			},
+			{
+				"command": "terminalTest.dcuset",
+				"title": "DCU Set ☑️"
 			}
-		]
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "terminalTest.dcupush",
+					"group": "DCU"
+				},
+				{
+					"command": "terminalTest.dcuset",
+					"group": "DCU"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "!explorerResourceIsFolder",
+					"command": "terminalTest.dcupush",
+					"group": "DCU"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "terminalTest.dcupushall",
+					"group": "DCU"
+				},
+				{
+					"command": "terminalTest.dcugrab",
+					"group": "DCU"
+				},
+				{
+					
+					"command": "terminalTest.dcuset",
+					"group": "DCU"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
