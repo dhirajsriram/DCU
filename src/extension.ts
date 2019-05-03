@@ -4,61 +4,88 @@ import * as vscode from 'vscode';
 var fs = require('fs');
 var terminal;
 var userData = {
-	node:"",
-	username:"",
-	password:""
+	node: '',
+	username: '',
+	password: ''
 };
+var NEXT_TERM_ID = 1;
 export function activate(context: vscode.ExtensionContext) {
-	//DCU put
-	vscode.commands.registerCommand('terminalTest.dcupush', (uri: vscode.Uri) => {
+	//DCU set key
+	vscode.commands.registerCommand('terminalTest.dcuset', async (uri: vscode.Uri) => {
 		createTerminal();
 		const fileLocation = uri.fsPath;
 		if (vscode.workspace.workspaceFolders) {
-			terminal.sendText('dcu --put "' + fileLocation + '"');
-			vscode.window.showInformationMessage('DCU pushed ✔️');
-		}
-	});
-	//DCU set key
-	vscode.commands.registerCommand('terminalTest.dcuset', () => {
-		createTerminal();
-		if (vscode.workspace.workspaceFolders) {
-			vscode.window.showInputBox({ placeHolder: 'Enter the application key' }).then((value) => {
-				if (!value) {
-					return;
-				} else {
-					terminal.sendText('REG delete HKCU\\Environment /F /V CC_APPLICATION_KEY');
-					terminal.sendText('setx CC_APPLICATION_KEY ' + value);
-					vscode.window.showInformationMessage('DCU set with the application key ✔️');
+			await askDetails('username');
+			await askDetails('password');
+			await askDetails('node');
+			console.log(fileLocation);
+			fs.writeFile(fileLocation+'/dculog.json', JSON.stringify(userData), function(err) {
+				if (err) {
+					return console.log(err);
 				}
+				vscode.window.showInformationMessage('DCU credentials saved ✔️');
+				console.log('The file was saved!');
 			});
 		}
 	});
-	//DCU putAll
-	vscode.commands.registerCommand('terminalTest.dcupushall', (uri: vscode.Uri) => {
-		createTerminal();
+}
+//DCU put
+vscode.commands.registerCommand('terminalTest.dcupush', (uri: vscode.Uri) => {
+	createTerminal();
+	const fileLocation = uri.fsPath;
+	console.log(fileLocation);
+	vscode.workspace.openTextDocument(vscode.workspace.rootPath + "/dculog.json").then((document) => {
+		let data = JSON.parse(document.getText());
 		if (vscode.workspace.workspaceFolders) {
-			const fileLocation = uri.fsPath;
-			terminal.sendText('dcu --putAll "' + fileLocation + '"');
+			terminal.sendText('dcu --put "' + fileLocation + '"' + " --username " +data["username"]+ " --password " +data["password"]+ " --node " + data["node"]);
 			vscode.window.showInformationMessage('DCU pushed ✔️');
 		}
-	});
-	//DCU grab
-	vscode.commands.registerCommand('terminalTest.dcugrab', async () => {
-		createTerminal();
-
-		if (vscode.workspace.workspaceFolders) {
-			if (fs.existsSync(vscode.workspace.rootPath + '/.ccc')) {
-				terminal.sendText('dcu --grab');
-				vscode.window.showInformationMessage('DCU Grabbed ✔️');
-			} else {
-				await askDetails('username');
-				await askDetails('password');
-				await askDetails('node');
-				terminal.sendText('dcu --grab --node ' +userData.node +' --username ' +userData.username +' --password ' +userData.password);
+	  }, (reason) => {
+		  vscode.window.showErrorMessage("DCU credentials were not found");
+	  });
+});
+//DCU putAll
+vscode.commands.registerCommand('terminalTest.dcupushall', (uri: vscode.Uri) => {
+	createTerminal();
+	if (vscode.workspace.workspaceFolders) {
+		const fileLocation = uri.fsPath;
+		vscode.workspace.openTextDocument(vscode.workspace.rootPath + "/dculog.json").then((document) => {
+			let data = JSON.parse(document.getText());
+			if (vscode.workspace.workspaceFolders) {
+				terminal.sendText('dcu --putAll "' + fileLocation + '"' + " --username " +data["username"]+ " --password " +data["password"]+ " --node " + data["node"]);
+				vscode.window.showInformationMessage('DCU pushed ✔️');
 			}
+		  }, (reason) => {
+			  vscode.window.showErrorMessage("DCU credentials were not found");
+		  });
+	}
+});
+//DCU grab
+vscode.commands.registerCommand('terminalTest.dcugrab', async () => {
+	createTerminal();
+	vscode.workspace.openTextDocument(vscode.workspace.rootPath + "/dculog.json").then((document) => {
+		let data = JSON.parse(document.getText());
+		if (vscode.workspace.workspaceFolders) {
+			terminal.sendText("dcu --grab --clean --username " +data["username"]+ " --password " +data["password"]+ " --node " + data["node"]);
+			vscode.window.showInformationMessage('DCU grabbed ✔️');
 		}
-	});
-}
+	  }, (reason) => {
+		  vscode.window.showErrorMessage("DCU credentials were not found");
+	  });
+});
+//DCU clean grab
+vscode.commands.registerCommand('terminalTest.dcucleangrab', async () => {
+	createTerminal();
+	vscode.workspace.openTextDocument(vscode.workspace.rootPath + "/dculog.json").then((document) => {
+		let data = JSON.parse(document.getText());
+		if (vscode.workspace.workspaceFolders) {
+			terminal.sendText("dcu --grab  --username " +data["username"]+ " --password " +data["password"]+ " --node " + data["node"]);
+			vscode.window.showInformationMessage('DCU grabbed ✔️');
+		}
+	  }, (reason) => {
+		  vscode.window.showErrorMessage("DCU credentials were not found");
+	  });
+});
 
 function createTerminal() {
 	if (!vscode.window.activeTerminal) {

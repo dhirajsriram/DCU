@@ -6,7 +6,7 @@
 		"name": "dhirajsriram"
 	},
 	"icon": "images/icon.png",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "Dhirajsriram",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -24,6 +24,7 @@
 		"onCommand:terminalTest.dcupush",
 		"onCommand:terminalTest.dcuset",
 		"onCommand:terminalTest.dcugrab",
+		"onCommand:terminalTest.dcucleangrab",
 		"onCommand:terminalTest.dcupushall"
 	],
 	"main": "./out/extension.js",
@@ -31,19 +32,23 @@
 		"commands": [
 			{
 				"command": "terminalTest.dcupush",
-				"title": "DCU Put ⬆️"
+				"title": "DCU put ⬆️"
 			},
 			{
 				"command": "terminalTest.dcupushall",
-				"title": "DCU Putall ⏫"
+				"title": "DCU putAll ⏫"
 			},
 			{
 				"command": "terminalTest.dcugrab",
-				"title": "DCU Grab ⬇️"
+				"title": "DCU grab ⬇️"
+			},
+			{
+				"command": "terminalTest.dcugrab",
+				"title": "DCU clean grab ⬇️"
 			},
 			{
 				"command": "terminalTest.dcuset",
-				"title": "DCU Set ☑️"
+				"title": "DCU set environment ☑️"
 			}
 		],
 		"menus": {
@@ -70,6 +75,10 @@
 				},
 				{
 					"command": "terminalTest.dcugrab",
+					"group": "DCU"
+				},
+				{
+					"command": "terminalTest.dcucleangrab",
 					"group": "DCU"
 				},
 				{
